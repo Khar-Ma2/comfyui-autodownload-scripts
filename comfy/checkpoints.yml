@@ -1,0 +1,73 @@
+version: '3'
+includes:
+  core:
+    taskfile: ../core.yml
+    internal: true
+
+tasks:
+  flux-dev-v1:
+    desc: "FLUX 1 dev checkpoint"
+    deps:
+      - task: core:hf
+        vars:
+          AUTHOR: black-forest-labs
+          REPO: FLUX.1-dev
+          FILENAME: FLUX.1-dev.safetensors
+          DEST: "{{.MODELS}}/checkpoints"    
+  flux-schnell-v1:
+    desc: "FLUX 1 schnell checkpoint"
+    deps:
+      - task: core:hf
+        vars:
+          AUTHOR: black-forest-labs
+          REPO: FLUX.1-schnell
+          FILENAME: flux1-schnell.safetensors
+          DEST: "{{.MODELS}}/checkpoints"
+  sdxl-base-v1:
+    desc: "SDXL Base v1 checkpoint"
+    deps:
+      - task: core:hf
+        vars:
+          AUTHOR: stabilityai
+          REPO: stable-diffusion-xl-base-1.0
+          FILENAME: sd_xl_base_1.0.safetensors
+          RENAME: sdxl_base_v1.safetensors
+          DEST: "{{.MODELS}}/checkpoints"
+  dreamshaper-xl-v2-turbo:
+    desc: "DreamShaper XL v2 Turbo"
+    deps:
+      - task: core:hf
+        vars:
+          AUTHOR: Lykon
+          REPO: dreamshaper-xl-v2-turbo
+          FILENAME: DreamShaperXL_Turbo_v2_1.safetensors
+          RENAME: dream_shaper_xl_v2_turbo.safetensors
+          DEST: "{{.MODELS}}/checkpoints"
+  illustrious-xl-v2:
+    desc: "Illustrious XL v2"
+    deps:
+      - task: core:hf
+        vars:
+          AUTHOR: OnomaAIResearch
+          REPO: Illustrious-XL-v2.0
+          FILENAME: Illustrious-XL-v2.0.safetensors
+          DEST: "{{.MODELS}}/checkpoints"
+  noob-ai-xl-v1:
+    desc: "NoobAI XL v1"
+    deps:
+      - task: core:hf
+        vars:
+          AUTHOR: Laxhar
+          REPO: noobai-XL-1.0
+          FILENAME: NoobAI-XL-v1.0.safetensors
+          DEST: "{{.MODELS}}/checkpoints"
+  pony-xl-v6:
+    desc: "Pony XL v6"
+    deps:
+      - task: core:hf
+        vars:
+          AUTHOR: LyliaEngine
+          REPO: Pony_Diffusion_V6_XL
+          FILENAME: ponyDiffusionV6XL_v6StartWithThisOne.safetensors
+          RENAME: pony_xl_v6.safetensors
+          DEST: "{{.MODELS}}/checkpoints"

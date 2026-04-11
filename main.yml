@@ -1,0 +1,148 @@
+version: '3'
+
+vars:
+  COMFYUI_PATH: "$DATA_DIRECTORY/ComfyUI"
+  MODELS: "$DATA_DIRECTORY/ComfyUI/models"
+  NODES:  "$DATA_DIRECTORY/ComfyUI/custom_nodes"
+  HF_TOKEN: $HF_TOKEN
+  CIVITAI_API_KEY: $CIVITAI_API_KEY
+
+includes:
+  core:
+    taskfile: ./core.yml
+    internal: true
+  birefnet:     ./comfy/birefnet.yml
+  checkpoints:  ./comfy/checkpoints.yml
+  clip:         ./comfy/clip.yml
+  clip_vision:  ./comfy/clip_vision.yml
+  ipadapter:    ./comfy/ipadapter.yml
+  style_models: ./comfy/style_models.yml
+  upscale:      ./comfy/upscale.yml
+  vae:          ./comfy/vae.yml
+
+tasks:
+
+# ╔══════════════════════════════════════════════════════════════╗
+# ║                    POST-PROCESS BUNDLE                      ║
+# ╚══════════════════════════════════════════════════════════════╝
+
+  post-process-base:
+    desc: "📦 Post-process: UltraSharp upscaler + BiRefNet"
+    deps:
+      - upscale:ultrasharp-v2
+      - birefnet:birefnet
+
+# ╔══════════════════════════════════════════════════════════════╗
+# ║                       FLUX BUNDLES                          ║
+# ╚══════════════════════════════════════════════════════════════╝
+
+  flux-dev-base:
+    desc: "📦 Flux dev — checkpoint + VAE + CLIP (L + T5 fp8 scaled)"
+    deps:
+      - checkpoints:flux-dev-v1
+      - vae:flux-v1-vae
+      - clip:l
+      - clip:t5xxlfp16
+      - clip:t5xxlfp8-scaled
+
+  flux-dev-full:
+    desc: "📦 Flux dev — base + Redux + post-process"
+    deps:
+      - task: flux-dev-base
+      - style_models:flux-redux
+      - task: post-process-base
+
+  flux-schnell-base:
+    desc: "📦 Flux schnell — checkpoint + VAE + CLIP (L + T5 fp8)"
+    deps:
+      - checkpoints:flux-schnell-v1
+      - vae:flux-v1-vae
+      - clip:l
+      - clip:t5xxlfp8
+      - clip:t5xxlfp8-scaled
+
+  flux-schnell-full:
+    desc: "📦 Flux schnell — base + Redux + post-process"
+    deps:
+      - task: flux-schnell-base
+      - style_models:flux-redux
+      - task: post-process-base
+
+# ╔══════════════════════════════════════════════════════════════╗
+# ║                       SDXL BUNDLES                          ║
+# ╚══════════════════════════════════════════════════════════════╝
+
+  # ── SDXL Base ──────────────────────────────────────────────
+  sdxl-base-base:
+    desc: "📦 SDXL Base v1 — checkpoint + VAE"
+    deps:
+      - checkpoints:sdxl-base-v1
+      - vae:sdxl-v1-vae
+
+  sdxl-base-full:
+    desc: "📦 SDXL Base v1 — base + CLIP + IPAdapter + post-process"
+    deps:
+      - task: sdxl-base-base
+      - ipadapter:sdxl-ipadapter-vit-h
+      - clip_vision:sdxl-image-encoder-vit-h
+      - task: post-process-base
+
+  # ── DreamShaper XL ─────────────────────────────────────────
+  dreamshaper-xl-base:
+    desc: "📦 DreamShaper XL v2 Turbo — checkpoint + VAE"
+    deps:
+      - checkpoints:dreamshaper-xl-v2-turbo
+      - vae:sdxl-v1-vae
+
+  dreamshaper-xl-full:
+    desc: "📦 DreamShaper XL v2 Turbo — base + CLIP + IPAdapter + post-process"
+    deps:
+      - task: dreamshaper-xl-base
+      - ipadapter:sdxl-ipadapter-vit-h
+      - clip_vision:sdxl-image-encoder-vit-h
+      - task: post-process-base
+
+  # ── Illustrious XL ─────────────────────────────────────────
+  illustrious-xl-base:
+    desc: "📦 Illustrious XL v2 — checkpoint + VAE"
+    deps:
+      - checkpoints:illustrious-xl-v2
+      - vae:sdxl-v1-vae
+
+  illustrious-xl-full:
+    desc: "📦 Illustrious XL v2 — base + CLIP + IPAdapter + post-process"
+    deps:
+      - task: illustrious-xl-base
+      - ipadapter:sdxl-ipadapter-vit-h
+      - clip_vision:sdxl-image-encoder-vit-h
+      - task: post-process-base
+
+  # ── NoobAI XL ──────────────────────────────────────────────
+  noob-ai-base:
+    desc: "📦 NoobAI XL v1 — checkpoint + VAE"
+    deps:
+      - checkpoints:noob-ai-xl-v1
+      - vae:sdxl-v1-vae
+
+  noob-ai-full:
+    desc: "📦 NoobAI XL v1 — base + CLIP + IPAdapter + post-process"
+    deps:
+      - task: noob-ai-base
+      - ipadapter:sdxl-ipadapter-vit-h
+      - clip_vision:sdxl-image-encoder-vit-h
+      - task: post-process-base
+
+  # ── Pony XL ────────────────────────────────────────────────
+  pony-xl-base:
+    desc: "📦 Pony XL v6 — checkpoint + власний VAE"
+    deps:
+      - checkpoints:pony-xl-v6
+      - vae:pony-xl-v6-vae
+
+  pony-xl-full:
+    desc: "📦 Pony XL v6 — base + CLIP + IPAdapter + post-process"
+    deps:
+      - task: pony-xl-base
+      - ipadapter:sdxl-ipadapter-vit-h
+      - clip_vision:sdxl-image-encoder-vit-h
+      - task: post-process-base

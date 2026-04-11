@@ -1,0 +1,17 @@
+version: '3'
+includes:
+  core:
+    taskfile: ../core.yml
+    internal: true
+
+tasks:
+  sdxl-ipadapter-vit-h:
+    desc: "sdxl vit-h ip adapter plus"
+    deps:
+      - task: core:hf
+        vars:
+          AUTHOR: h94
+          REPO: IP-Adapter
+          SUB_PATH: sdxl_models/
+          FILENAME: ip-adapter-plus_sdxl_vit-h.safetensors
+          DEST: "{{.MODELS}}/ipadapter" 

@@ -1,0 +1,17 @@
+version: '3'
+includes:
+  core:
+    taskfile: ../core.yml
+    internal: true
+
+tasks:
+  birefnet:
+    desc: "BiRefNet bg remove"
+    deps:
+      - task: core:hf
+        vars:
+          AUTHOR: ZhengPeng7
+          REPO: BiRefNet
+          FILENAME: model.safetensors
+          RENAME: biref_model.safetensors
+          DEST: "{{.MODELS}}/BiRefNet"    

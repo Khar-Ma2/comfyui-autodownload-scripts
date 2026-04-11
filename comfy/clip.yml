@@ -1,0 +1,44 @@
+version: '3'
+includes:
+  core:
+    taskfile: ../core.yml
+    internal: true
+
+tasks:
+  l:
+    desc: "Clip L"
+    deps:
+      - task: core:hf
+        vars:
+          AUTHOR: comfyanonymous
+          REPO: flux_text_encoders
+          FILENAME: clip_l.safetensors
+          DEST: "{{.MODELS}}/clip"
+  t5xxlfp16:
+    desc: "Clip T5 xxl fp16"
+    deps:
+      - task: core:hf
+        vars:
+          AUTHOR: comfyanonymous
+          REPO: flux_text_encoders
+          FILENAME: t5xxl_fp16.safetensors
+          DEST: "{{.MODELS}}/clip"
+  t5xxlfp8-scaled:
+    desc: "Clip T5 xxl fp8 scaled"
+    deps:
+      - task: core:hf
+        vars:
+          AUTHOR: comfyanonymous
+          REPO: flux_text_encoders
+          FILENAME: t5xxl_fp8_e4m3fn_scaled.safetensors
+          DEST: "{{.MODELS}}/clip"
+  t5xxlfp8:
+    desc: "Clip T5 xxl fp8"
+    deps:
+      - task: core:hf
+        vars:
+          AUTHOR: comfyanonymous
+          REPO: flux_text_encoders
+          FILENAME: t5xxl_fp8_e4m3fn.safetensors
+          DEST: "{{.MODELS}}/clip"
+      

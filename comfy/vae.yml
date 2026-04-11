@@ -1,0 +1,36 @@
+version: '3'
+includes:
+  core:
+    taskfile: ../core.yml
+    internal: true
+
+tasks:
+  sdxl-v1-vae:
+    desc: "SDXL Base v1 VAE"
+    deps:
+      - task: core:hf
+        vars:
+          AUTHOR: stabilityai
+          REPO: sdxl-vae
+          FILENAME: sdxl_vae.safetensors
+          DEST: "{{.MODELS}}/vae"
+  flux-v1-vae:
+    desc: "Flux v1 VAE"
+    deps:
+      - task: core:hf
+        vars:
+          AUTHOR: black-forest-labs
+          REPO: FLUX.1-dev
+          FILENAME: ae.safetensors
+          RENAME: flux_v1_vae.safetensors
+          DEST: "{{.MODELS}}/vae"
+  pony-xl-v6-vae:
+    desc: "Pony XL v6 VAE"
+    deps:
+      - task: core:hf
+        vars:
+          AUTHOR: LyliaEngine
+          REPO: Pony_Diffusion_V6_XL
+          FILENAME: sdxl_vae.safetensors
+          RENAME: pony_xl_v6_vae.safetensors
+          DEST: "{{.MODELS}}/vae"

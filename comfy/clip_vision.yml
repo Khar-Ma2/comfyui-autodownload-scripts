@@ -1,0 +1,18 @@
+version: '3'
+includes:
+  core:
+    taskfile: ../core.yml
+    internal: true
+
+tasks:
+  sdxl-image-encoder-vit-h:
+    desc: "sdxl vit-h ipadapter image encoder"
+    deps:
+      - task: core:hf
+        vars:
+          AUTHOR: h94
+          REPO: IP-Adapter
+          SUB_PATH: sdxl_models/image_encoder/
+          FILENAME: model.safetensors
+          RENAME: sdxl_image_encoder.safetensors
+          DEST: "{{.MODELS}}/clip_vision"    

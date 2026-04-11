@@ -1,0 +1,17 @@
+version: '3'
+includes:
+  core:
+    taskfile: ../core.yml
+    internal: true
+
+tasks:
+  ultrasharp-v2:
+    desc: "UltraSharpV2 upsacle"
+    deps:
+      - task: core:hf
+        vars:
+          AUTHOR: Kim2091
+          REPO: UltraSharpV2
+          FILENAME: 4x-UltraSharpV2.safetensors
+          DEST: "{{.MODELS}}/upscale_models"    
+

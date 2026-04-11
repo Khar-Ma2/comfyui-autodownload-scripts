@@ -1,0 +1,103 @@
+version: '3'
+tasks:
+# ╔══════════════════════════════════════════════════════════════╗
+# ║                   INTERNAL API PRIMITIVES                   ║
+# ╚══════════════════════════════════════════════════════════════╝
+  hf:
+    internal: true
+    label: "hugging face {{.AUTHOR}}/{{.REPO}} ({{.FILENAME}})"
+    vars:
+      SUB: '{{.SUB_PATH | default ""}}'
+      TARGET_NAME: '{{if .RENAME}}{{.RENAME}}{{else}}{{.FILENAME}}{{end}}'
+      DOWNLOADED_PATH: '{{.DEST}}/{{.SUB}}{{.FILENAME}}'
+      FINAL_PATH: '{{.DEST}}/{{.TARGET_NAME}}'
+    status:
+      - test -f "{{.FINAL_PATH}}"
+    preconditions:
+      - sh: '[ -n "{{.AUTHOR}}" ]'
+        msg: "Missing required variable: AUTHOR"
+      - sh: '[ -n "{{.REPO}}" ]'
+        msg: "Missing required variable: REPO"
+      - sh: '[ -n "{{.FILENAME}}" ]'
+        msg: "Missing required variable: FILENAME"
+      - sh: '[ -n "{{.DEST}}" ]'
+        msg: "Missing required variable: DEST"
+      - sh: '[ -n "{{.HF_TOKEN}}" ]'
+        msg: "Missing required variable: HF_TOKEN"
+    cmds:
+      - task: hf-cli-check      
+      - mkdir -p "{{.DEST}}"
+      - hf download {{.AUTHOR}}/{{.REPO}} {{.SUB}}{{.FILENAME}} --local-dir "{{.DEST}}" --token {{.HF_TOKEN}}
+      # Flattening та Rename
+      - |
+        if [ "{{.DOWNLOADED_PATH}}" != "{{.FINAL_PATH}}" ]; then
+          mv "{{.DOWNLOADED_PATH}}" "{{.FINAL_PATH}}"
+        fi
+      # Cleanup
+      - |
+        {{if .SUB_PATH}}
+        find "{{.DEST}}" -mindepth 1 -type d -empty -delete
+        {{end}}
+  
+  
+  civitai:
+    internal: true
+    label: "Civit AI model:{{.MODEL_ID}} → {{.RENAME}}"
+    status:
+      - test -f "{{.DEST}}/{{.RENAME}}"
+    preconditions:
+      - sh: '[ -n "{{.MODEL_ID}}" ]'
+        msg: "Civitai error: MODEL_ID is required"
+      - sh: '[ -n "{{.CIVITAI_API_KEY}}" ]'
+        msg: "Civitai error: CIVITAI_API_KEY is missing (Check your .env or global vars)"
+      - sh: '[ -n "{{.DEST}}" ]'
+        msg: "Civitai error: DEST path is not specified"
+      - sh: '[ -n "{{.RENAME}}" ]'
+        msg: "Civitai error: RENAME is mandatory for consistent model naming"
+    cmds:
+      - task: curl-check      
+      - mkdir -p "{{.DEST}}"
+      - >-
+        curl -fLS
+        -H "Authorization: Bearer {{.CIVITAI_API_KEY}}"
+        "https://civitai.com/api/download/models/{{.MODEL_ID}}"
+        -o "{{.DEST}}/{{.RENAME}}"
+
+  
+  comfy-node:
+    internal: true
+    label: "comfy node {{.NODE_NAME}}"
+    status:
+      - comfy node list | grep -qi "{{.NODE_NAME}}"
+    cmds:
+      - task: comfy-cli-check      
+      - comfy node install "{{.NODE_NAME}}" --uv-compile
+
+# ╔══════════════════════════════════════════════════════════════╗
+# ║                            UTILS                             ║
+# ╚══════════════════════════════════════════════════════════════╝
+  curl-check:
+    internal: true
+    label: "curl check"
+    status:
+      - command -v curl > /dev/null 2>&1
+    cmds:
+      - sudo apt-get install -y curl
+      
+  hf-cli-check:
+    internal: true
+    label: "hugging face cli check"
+    status:
+      - command -v hf > /dev/null 2>&1
+    cmds:
+      - curl -LsSf https://hf.co/cli/install.sh | bash
+
+  comfy-cli-check:
+    internal: true
+    label: "comfy cli check"
+    status:
+      - command -v comfy > /dev/null 2>&1
+    cmds:
+      - pip install comfy-cli
+      - comfy --install-completion
+      - comfy set-default "{{.COMFYUI_PATH}}"

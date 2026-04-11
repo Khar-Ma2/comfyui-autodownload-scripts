@@ -1,0 +1,16 @@
+version: '3'
+includes:
+  core:
+    taskfile: ../core.yml
+    internal: true
+
+tasks:
+  flux-redux:
+    desc: "Flux Redux"
+    deps:
+      - task: core:hf
+        vars:
+          AUTHOR: black-forest-labs
+          REPO: FLUX.1-Redux-dev
+          FILENAME: flux1-redux-dev.safetensors
+          DEST: "{{.MODELS}}/style_models"    
