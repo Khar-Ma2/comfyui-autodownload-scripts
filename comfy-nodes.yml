@@ -13,50 +13,50 @@ tasks:
         vars:
           NODE_NAME: extralinks
   comfyui-kjnodes:
-    deps: "links via set / get nodes and others"
+    desc: "links via set / get nodes and others"
     deps:
       - task: core:comfy-node
         vars:
           NODE_NAME: comfyui-kjnodes
   packedpipes:
-    deps: "custom pipes"
+    desc: "custom pipes"
     deps:
       - task: core:comfy-node
         vars:
           NODE_NAME: packedpipes
   rgthree-comfy:
-    deps: "utils, nodes + UI"
+    desc: "utils, nodes + UI"
     deps:
       - task: core:comfy-node
         vars:
           NODE_NAME: rgthree-comfy
   was-ns:
-    deps: "nodes"
+    desc: "nodes"
     deps:
       - task: core:comfy-node
         vars:
           NODE_NAME: was-ns
 ## workflow
   comfyui-ultimatesdupscale:
-    deps: "upscale nodes"
+    desc: "upscale nodes"
     deps:
       - task: core:comfy-node
         vars:
           NODE_NAME: comfyui_ultimatesdupscale
   comfyui-ipadapter-plus:
-    deps: "ipadapter nodes"
+    desc: "ipadapter nodes"
     deps:
       - task: core:comfy-node
         vars:
           NODE_NAME: comfyui_ipadapter_plus
   comfyui-birefnet-ll:
-    deps: "remove background nodes"
+    desc: "remove background nodes"
     deps:
       - task: core:comfy-node
         vars:
           NODE_NAME: comfyui_birefnet_ll
   comfyui-logicutils:
-    deps: "logic operation nodes"
+    desc: "logic operation nodes"
     deps:
       - task: core:comfy-node
         vars:

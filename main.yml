@@ -1,9 +1,9 @@
 version: '3'
 
 vars:
-  COMFYUI_PATH: "$DATA_DIRECTORY/ComfyUI"
-  MODELS: "$DATA_DIRECTORY/ComfyUI/models"
-  NODES:  "$DATA_DIRECTORY/ComfyUI/custom_nodes"
+  COMFYUI_PATH: "$COMFYUI_PATH"
+  MODELS: "$COMFYUI_PATH/models"
+  NODES:  "$COMFYUI_PATH/custom_nodes"
   HF_TOKEN: $HF_TOKEN
   CIVITAI_API_KEY: $CIVITAI_API_KEY
 
@@ -28,7 +28,7 @@ tasks:
 # ╚══════════════════════════════════════════════════════════════╝
   base-nodes-bundle:
     desc: "all base nodes for kharma's workflows"
-    deps: 
+    cmds:
       - comfy-nodes:extralinks
       - comfy-nodes:comfyui-kjnodes
       - comfy-nodes:packedpipes
@@ -38,6 +38,7 @@ tasks:
       - comfy-nodes:comfyui-ipadapter-plus
       - comfy-nodes:comfyui-birefnet-ll
       - comfy-nodes:comfyui-logicutils
+      - cm-cli uv-sync
   post-process-base:
     desc: "📦 Post-process: UltraSharp upscaler + BiRefNet"
     deps:

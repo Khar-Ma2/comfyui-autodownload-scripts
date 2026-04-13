@@ -71,7 +71,7 @@ tasks:
       - comfy node list | grep -qi "{{.NODE_NAME}}"
     cmds:
       - task: comfy-cli-check      
-      - comfy node install "{{.NODE_NAME}}" --uv-compile
+      - comfy node install "{{.NODE_NAME}}"
 
 # ╔══════════════════════════════════════════════════════════════╗
 # ║                            UTILS                             ║
@@ -96,8 +96,10 @@ tasks:
     internal: true
     label: "comfy cli check"
     status:
+      - command -v cm-cli > /dev/null 2>&1
       - command -v comfy > /dev/null 2>&1
     cmds:
+      - pip install comfyui-manager
       - pip install comfy-cli
       - comfy --install-completion
       - comfy set-default "{{.COMFYUI_PATH}}"
