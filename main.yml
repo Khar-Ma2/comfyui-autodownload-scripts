@@ -11,21 +11,33 @@ includes:
   core:
     taskfile: ./core.yml
     internal: true
-  birefnet:     ./comfy/birefnet.yml
-  checkpoints:  ./comfy/checkpoints.yml
-  clip:         ./comfy/clip.yml
-  clip_vision:  ./comfy/clip_vision.yml
-  ipadapter:    ./comfy/ipadapter.yml
-  style_models: ./comfy/style_models.yml
-  upscale:      ./comfy/upscale.yml
-  vae:          ./comfy/vae.yml
+  comfy-nodes:  ./comfy-nodes.yml
+  birefnet:     ./comfy-models/birefnet.yml
+  checkpoints:  ./comfy-models/checkpoints.yml
+  clip:         ./comfy-models/clip.yml
+  clip_vision:  ./comfy-models/clip_vision.yml
+  ipadapter:    ./comfy-models/ipadapter.yml
+  style_models: ./comfy-models/style_models.yml
+  upscale:      ./comfy-models/upscale.yml
+  vae:          ./comfy-models/vae.yml
 
 tasks:
 
 # ╔══════════════════════════════════════════════════════════════╗
 # ║                    POST-PROCESS BUNDLE                      ║
 # ╚══════════════════════════════════════════════════════════════╝
-
+  base-nodes-bundle:
+    desc: "all base nodes for kharma's workflows"
+    deps: 
+      - comfy-nodes:extralinks
+      - comfy-nodes:comfyui-kjnodes
+      - comfy-nodes:packedpipes
+      - comfy-nodes:rgthree-comfy
+      - comfy-nodes:was-ns
+      - comfy-nodes:comfyui-ultimatesdupscale
+      - comfy-nodes:comfyui-ipadapter-plus
+      - comfy-nodes:comfyui-birefnet-ll
+      - comfy-nodes:comfyui-logicutils
   post-process-base:
     desc: "📦 Post-process: UltraSharp upscaler + BiRefNet"
     deps:

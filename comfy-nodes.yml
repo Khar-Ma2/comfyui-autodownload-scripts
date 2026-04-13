@@ -1,0 +1,63 @@
+version: '3'
+includes:
+  core:
+    taskfile: ./core.yml
+    internal: true
+
+tasks:
+##base
+  extralinks:
+    desc: "UI extra links between nodes"
+    deps:
+      - task: core:comfy-node
+        vars:
+          NODE_NAME: extralinks
+  comfyui-kjnodes:
+    deps: "links via set / get nodes and others"
+    deps:
+      - task: core:comfy-node
+        vars:
+          NODE_NAME: comfyui-kjnodes
+  packedpipes:
+    deps: "custom pipes"
+    deps:
+      - task: core:comfy-node
+        vars:
+          NODE_NAME: packedpipes
+  rgthree-comfy:
+    deps: "utils, nodes + UI"
+    deps:
+      - task: core:comfy-node
+        vars:
+          NODE_NAME: rgthree-comfy
+  was-ns:
+    deps: "nodes"
+    deps:
+      - task: core:comfy-node
+        vars:
+          NODE_NAME: was-ns
+## workflow
+  comfyui-ultimatesdupscale:
+    deps: "upscale nodes"
+    deps:
+      - task: core:comfy-node
+        vars:
+          NODE_NAME: comfyui_ultimatesdupscale
+  comfyui-ipadapter-plus:
+    deps: "ipadapter nodes"
+    deps:
+      - task: core:comfy-node
+        vars:
+          NODE_NAME: comfyui_ipadapter_plus
+  comfyui-birefnet-ll:
+    deps: "remove background nodes"
+    deps:
+      - task: core:comfy-node
+        vars:
+          NODE_NAME: comfyui_birefnet_ll
+  comfyui-logicutils:
+    deps: "logic operation nodes"
+    deps:
+      - task: core:comfy-node
+        vars:
+          NODE_NAME: comfyui-logicutils
