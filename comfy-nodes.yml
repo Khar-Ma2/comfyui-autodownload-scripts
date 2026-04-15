@@ -6,6 +6,12 @@ includes:
 
 tasks:
 ##base
+  comfy-script-utils:
+    desc: "nodes to transform Image to PIL and back"
+    deps: 
+      - task: core:comfy-node
+        vars:
+          NODE_NAME: ComfyUI_Ib_CustomNodes
   extralinks:
     desc: "UI extra links between nodes"
     deps:

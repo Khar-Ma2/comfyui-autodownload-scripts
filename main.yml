@@ -29,6 +29,7 @@ tasks:
   base-nodes-bundle:
     desc: "all base nodes for kharma's workflows"
     cmds:
+      - comfy-nodes:comfy-script-utils
       - comfy-nodes:extralinks
       - comfy-nodes:comfyui-kjnodes
       - comfy-nodes:packedpipes
