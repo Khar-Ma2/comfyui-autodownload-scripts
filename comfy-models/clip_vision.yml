@@ -6,13 +6,13 @@ includes:
 
 tasks:
   sdxl-image-encoder-vit-h:
-    desc: "sdxl vit-h ipadapter image encoder"
+    desc: "sdxl vit-h image encoder"
     deps:
       - task: core:hf
         vars:
           AUTHOR: h94
           REPO: IP-Adapter
-          SUB_PATH: sdxl_models/image_encoder/
+          SUB_PATH: models/image_encoder/
           FILENAME: model.safetensors
-          RENAME: sdxl_image_encoder.safetensors
+          RENAME: sdxl_vit-h_image_encoder.safetensors
           DEST: "{{.MODELS}}/clip_vision"    
