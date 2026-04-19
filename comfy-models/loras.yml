@@ -1,0 +1,156 @@
+version: '3'
+includes:
+  core:
+    taskfile: ../core.yml
+    internal: true
+
+tasks:
+
+##SDXL LORA most relevant on top in each base model block
+  sdxl_watercolor1:
+    desc: "Watercolor Drip Paintings" ##https://civitai.com/models/644287/watercolor-drip-paintings  (217.87 MB)
+    #trigger: novuschroma65 style watercolor
+    deps:
+      - task: core:civitai
+        vars:
+          MODEL_VERSION_ID: 720709
+          RENAME: sdxl_watercolor1.safetensors
+          DEST: "{{.MODELS}}/loras"    
+  sdxl_watercolor2:
+    desc: "Watercolor Style [SDXL]" ##https://civitai.com/models/484723/watercolor-style-sdxl  (217.87 MB)
+    #trigger: ral-wtrclr
+    deps:
+      - task: core:civitai
+        vars:
+          MODEL_VERSION_ID: 539071
+          RENAME: sdxl_watercolor2.safetensors
+          DEST: "{{.MODELS}}/loras"    
+  sdxl_watercolor3:
+    desc: "Watercolor" ##https://civitai.com/models/552722/watercolor  (217.87 MB)
+    deps:
+      - task: core:civitai
+        vars:
+          MODEL_VERSION_ID: 615094
+          RENAME: sdxl_watercolor3.safetensors
+          DEST: "{{.MODELS}}/loras"    
+  sdxl_watercolor4:
+    desc: "A watercolor food style - tangbohu [SDXL] 32" ##https://civitai.com/models/551937/a-watercolor-food-style-tangbohu-sdxl-32  (435.34 MB)
+    deps:
+      - task: core:civitai
+        vars:
+          MODEL_VERSION_ID: 614184
+          RENAME: sdxl_watercolor4.safetensors
+          DEST: "{{.MODELS}}/loras"    
+  sdxl_watercolor5:
+    desc: "Envy Anime Watercolor XL 01" ##https://civitai.com/models/227918/envy-anime-watercolor-xl-01 (44.54 MB)
+    #trigger: watercolor
+    deps:
+      - task: core:civitai
+        vars:
+          MODEL_VERSION_ID: 257147
+          RENAME: sdxl_watercolor5.safetensors
+          DEST: "{{.MODELS}}/loras"    
+  ##DORA
+  sdxl_watercolor6:
+    desc: "DORA Envy Starlight Anime Watercolor 02" ##https://civitai.com/models/484025/envy-starlight-anime-watercolor-02 (64.58 MB)
+    #trigger: anime watercolor on vellum
+    deps:
+      - task: core:civitai
+        vars:
+          MODEL_VERSION_ID: 538323
+          RENAME: sdxl_watercolor6.safetensors
+          DEST: "{{.MODELS}}/loras"    
+
+##PONY LORA most relevant on top in each base model block
+  ponyxl_watercolor1:
+    desc: "Watercolor Orange Blossom Style [XL+Pony]" ##https://civitai.com/models/565868/watercolor-orange-blossom-style-xlpony (217.87 MB)
+    #trigger: ncpy45 style watercolor
+    deps:
+      - task: core:civitai
+        vars:
+          MODEL_VERSION_ID: 730271
+          RENAME: ponyxl_watercolor1.safetensors
+          DEST: "{{.MODELS}}/loras"    
+  ponyxl_watercolor2:
+    desc: "Runta (るん太) watercolor artstyle (Pixiv, etc) [Pony]" ##https://civitai.com/models/2340147/runta-watercolor-artstyle-pixiv-etc-pony (217.87 MB)
+    #trigger: by runta, watercolor (medium), painting (medium), traditional media
+    deps:
+      - task: core:civitai
+        vars:
+          MODEL_VERSION_ID: 2632225
+          RENAME: ponyxl_watercolor2.safetensors
+          DEST: "{{.MODELS}}/loras"
+  ponyxl_watercolor3:
+    desc: "Watercolor Sketch Style [XL+Pony]" ##https://civitai.com/models/612370/watercolor-sketch-style-xlpony (217.87 MB)
+    #trigger: ncpy43 style
+    deps:
+      - task: core:civitai
+        vars:
+          MODEL_VERSION_ID: 717948
+          RENAME: ponyxl_watercolor3.safetensors
+          DEST: "{{.MODELS}}/loras"
+
+##illustrious LORA most relevant on top in each base model block
+  ponyxl_illustrious_watercolor1:
+    desc: "WatercolorStyle (IL + PONY)" ##https://civitai.com/models/963176/watercolorstyle-il-pony (386.27 MB)
+    #trigger: Watercolor
+    deps:
+      - task: core:civitai
+        vars:
+          MODEL_VERSION_ID: 1150702
+          RENAME: ponyxl_illustrious_watercolor1.safetensors
+          DEST: "{{.MODELS}}/loras"
+  illustrious_watercolor1:
+    desc: "Emotional Watercolor" ##https://civitai.com/models/2289270/emotional-watercolor (177.11 MB)
+    #trigger: EmoWaterDaal
+    deps:
+      - task: core:civitai
+        vars:
+          MODEL_VERSION_ID: 2576217
+          RENAME: illustrious_watercolor1.safetensors
+          DEST: "{{.MODELS}}/loras"
+  illustrious_watercolor2:
+    desc: "Sy0kumura | Shiiro's Styles" ##https://civitai.com/models/2056239/sy0kumura-or-shiiros-styles (109.14 MB)
+    #trigger: sy0kumur4_Style,watercolor \(medium\)
+    deps:
+      - task: core:civitai
+        vars:
+          MODEL_VERSION_ID: 2326936
+          RENAME: illustrious_watercolor2.safetensors
+          DEST: "{{.MODELS}}/loras"
+  illustrious_watercolor3:
+    desc: "rendering lineless" ##https://civitai.com/models/2043642/rendering-lineless (80.93 MB)
+    #trigger: watercolor, rendering lineless, limited palette, partially colored, spot color,pastel colors
+    deps:
+      - task: core:civitai
+        vars:
+          MODEL_VERSION_ID: 2313016
+          RENAME: illustrious_watercolor3.safetensors
+          DEST: "{{.MODELS}}/loras"
+  illustrious_watercolor4:
+    desc: "[illustrious XL] yufushi/友风子，Japanese style watercolor/日系和风水彩 - Artist Style" ##https://civitai.com/models/1816432/illustrious-xl-yufushijapanese-style-watercolor-artist-style (54.78 MB)
+    #trigger: watercolor \(medium\), traditional media
+    deps:
+      - task: core:civitai
+        vars:
+          MODEL_VERSION_ID: 2055560
+          RENAME: illustrious_watercolor4.safetensors
+          DEST: "{{.MODELS}}/loras"
+  illustrious_watercolor5:
+    desc: "Watercolor - Vitamin B" ## https://civitai.com/models/1473404/watercolor-vitamin-b  (217.88 MB)
+    #trigger: watercolor
+    deps:
+      - task: core:civitai
+        vars:
+          MODEL_VERSION_ID: 1666556
+          RENAME: illustrious_watercolor5.safetensors
+          DEST: "{{.MODELS}}/loras"
+  illustrious_watercolor6:
+    desc: "Watercolor" ##https://civitai.com/models/1446295/watercolor
+    #trigger: watercolor, traditional watercolor style, watercolor texture, paper texture, limited palette, white background
+    deps:
+      - task: core:civitai
+        vars:
+          MODEL_VERSION_ID: 1635101
+          RENAME: illustrious_watercolor6.safetensors
+          DEST: "{{.MODELS}}/loras"

@@ -42,12 +42,12 @@ tasks:
   
   civitai:
     internal: true
-    label: "Civit AI model:{{.MODEL_ID}} → {{.RENAME}}"
+    label: "Civit AI model:{{.MODEL_VERSION_ID}} → {{.RENAME}}"
     status:
       - test -f "{{.DEST}}/{{.RENAME}}"
     preconditions:
-      - sh: '[ -n "{{.MODEL_ID}}" ]'
-        msg: "Civitai error: MODEL_ID is required"
+      - sh: '[ -n "{{.MODEL_VERSION_ID}}" ]'
+        msg: "Civitai error: MODEL_VERSION_ID is required"
       - sh: '[ -n "{{.CIVITAI_API_KEY}}" ]'
         msg: "Civitai error: CIVITAI_API_KEY is missing (Check your .env or global vars)"
       - sh: '[ -n "{{.DEST}}" ]'
@@ -60,7 +60,7 @@ tasks:
       - >-
         curl -fLS
         -H "Authorization: Bearer {{.CIVITAI_API_KEY}}"
-        "https://civitai.com/api/download/models/{{.MODEL_ID}}"
+        "https://civitai.com/api/download/models/{{.MODEL_VERSION_ID}}"
         -o "{{.DEST}}/{{.RENAME}}"
 
   

@@ -29,17 +29,21 @@ tasks:
   base-nodes-bundle:
     desc: "all base nodes for kharma's workflows"
     cmds:
+      - task: comfy-nodes:civitai-comfy-nodes
       - task: comfy-nodes:comfy-script-utils
+      - task: comfy-nodes:comfyui-ultimatesdupscale
+      - task: comfy-nodes:comfyui-ipadapter-plus
+      - task: comfy-nodes:comfyui-birefnet-ll
+  all-nodes-bundle:
+    desc: "all base nodes for kharma's workflows"
+    cmds:
+      - task: base-nodes-bundle
       - task: comfy-nodes:extralinks
       - task: comfy-nodes:comfyui-kjnodes
       - task: comfy-nodes:packedpipes
       - task: comfy-nodes:rgthree-comfy
       - task: comfy-nodes:was-ns
-      - task: comfy-nodes:comfyui-ultimatesdupscale
-      - task: comfy-nodes:comfyui-ipadapter-plus
-      - task: comfy-nodes:comfyui-birefnet-ll
       - task: comfy-nodes:comfyui-logicutils
-      - cm-cli uv-sync
   post-process-base:
     desc: "📦 Post-process: UltraSharp upscaler + BiRefNet"
     deps:

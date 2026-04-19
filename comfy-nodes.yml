@@ -6,6 +6,13 @@ includes:
 
 tasks:
 ##base
+  civitai-comfy-nodes:
+    desc: "civitai loader-downloader nodes "
+    deps:
+      - task: core:comfy-node
+        vars:
+          NODE_NAME: civitai_comfy_nodes
+
   comfy-script-utils:
     desc: "nodes to transform Image to PIL and back"
     deps: 
@@ -67,3 +74,6 @@ tasks:
       - task: core:comfy-node
         vars:
           NODE_NAME: comfyui-logicutils
+
+  
+
