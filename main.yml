@@ -31,9 +31,9 @@ tasks:
     cmds:
       - task : base-nodes-bundle
       - task : pony-xl-base
-      - task : checkpoints: dreamshaper-xl-v2-turbo
-      - task : checkpoints: illustrious-xl-v2
-      - task : checkpoints: noob-ai-xl-v1
+      - task : checkpoints:dreamshaper-xl-v2-turbo
+      - task : checkpoints:illustrious-xl-v2
+      - task : checkpoints:noob-ai-xl-v1
       - task : sdxl-base-base
   base-nodes-bundle:
     desc: "all base nodes for kharma's workflows"
