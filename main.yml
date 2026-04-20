@@ -27,6 +27,7 @@ tasks:
 # ║                    POST-PROCESS BUNDLE                      ║
 # ╚══════════════════════════════════════════════════════════════╝
   all-sdxl-models:
+    desc: "all base sdxl models + VAE"
     cmds:
       - task : base-nodes-bundle
       - task : pony-xl-base
