@@ -12,7 +12,7 @@ tasks:
         vars:
           AUTHOR: black-forest-labs
           REPO: FLUX.1-dev
-          FILENAME: FLUX.1-dev.safetensors
+          FILENAME: flux1-dev.safetensors
           DEST: "{{.MODELS}}/checkpoints"    
   flux-schnell-v1:
     desc: "FLUX 1 schnell checkpoint"
