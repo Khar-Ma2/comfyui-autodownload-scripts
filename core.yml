@@ -71,7 +71,7 @@ tasks:
       - comfy node list | grep -qi "{{.NODE_NAME}}"
     cmds:
       - task: comfy-cli-check      
-      - comfy node install "{{.NODE_NAME}}"
+      - comfy node registry-install "{{.NODE_NAME}}" || comfy node install "{{.NODE_NAME}}"
 
 # ╔══════════════════════════════════════════════════════════════╗
 # ║                            UTILS                             ║

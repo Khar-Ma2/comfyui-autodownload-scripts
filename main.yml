@@ -40,6 +40,7 @@ tasks:
     desc: "all base nodes for kharma's workflows"
     cmds:
       - task: comfy-nodes:civitai-comfy-nodes
+      - task: comfy-nodes:civitai-comfy-nodes-old
       - task: comfy-nodes:comfy-script-utils
       - task: comfy-nodes:comfyui-ultimatesdupscale
       - task: comfy-nodes:comfyui-ipadapter-plus
@@ -70,8 +71,15 @@ tasks:
       - checkpoints:flux-dev-v1
       - vae:flux-v1-vae
       - clip:l
-      - clip:t5xxlfp16
       - clip:t5xxlfp8-scaled
+
+  flux-dev-fp16:
+    desc: "📦 Flux dev — checkpoint + VAE + CLIP (L + T5 fp16)"
+    deps:
+      - checkpoints:flux-dev-v1
+      - vae:flux-v1-vae
+      - clip:l
+      - clip:t5xxlfp16
 
   flux-dev-full:
     desc: "📦 Flux dev — base + Redux + post-process"
@@ -87,7 +95,14 @@ tasks:
       - vae:flux-v1-vae
       - clip:l
       - clip:t5xxlfp8
-      - clip:t5xxlfp8-scaled
+
+  flux-schnell-fp16:
+    desc: "📦 Flux schnell — checkpoint + VAE + CLIP (L + T5 fp16)"
+    deps:
+      - checkpoints:flux-schnell-v1
+      - vae:flux-v1-vae
+      - clip:l
+      - clip:t5xxlfp16
 
   flux-schnell-full:
     desc: "📦 Flux schnell — base + Redux + post-process"

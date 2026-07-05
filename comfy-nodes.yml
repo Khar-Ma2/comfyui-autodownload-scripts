@@ -11,6 +11,13 @@ tasks:
     deps:
       - task: core:comfy-node
         vars:
+          NODE_NAME: civitai-comfy-nodes
+
+  civitai-comfy-nodes-old:
+    desc: "old civitai loader-downloader nodes "
+    deps:
+      - task: core:comfy-node
+        vars:
           NODE_NAME: civitai_comfy_nodes
 
   comfy-script-utils:
